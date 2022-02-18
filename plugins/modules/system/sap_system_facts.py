@@ -178,7 +178,7 @@ def run_module():
     hana_sid = get_all_hana_sid()
     if hana_sid:
         system_result = system_result + get_hana_nr(hana_sid, module)
-
+        
     nw_sid = get_all_nw_sid()
     if nw_sid:
         system_result = system_result + get_nw_nr(nw_sid, module)
