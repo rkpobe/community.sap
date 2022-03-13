@@ -21,10 +21,39 @@ def _process_lp_output(anstring):
                 _dict[headers[el]]= _list[el]
             retlist.append(_dict)
 
-            
+
+def _list_sanitize_helper(anstring, delim="\n"):
+    _alist = anstring.split(delim)
+    return [i.strip() for i in _alist]
+
+def _process_sap_generic_csv():
+    anstring='''
+13.03.2022 15:45:17
+ICMGetCacheEntries
+OK
+name, version, size, cache, creation_time, last_access_time, expiration_time, cacheurl'''
+
+    alist = _list_sanitize_helper(anstring)
+    f_name = alist[2]
+    header_list = _list_sanitize_helper(alist[4], ",")
+    retlist = []
+    if len(alist)-1 > 4: 
+        for i in alist[5:]:
+            tmplist = _list_sanitize_helper(i, ",")
+            retlist.append(dict(zip(header_list, tmplist)))
+    else:
+        retlist.append(dict(zip(header_list,[None]*len(header_list))))
+        
+    print(retlist)
 
 
 
 
-_process_lp_output(a)
+
+
+
+
+
+#_process_lp_output(a)
+_process_sap_generic_csv()
 
